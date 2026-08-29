@@ -15,4 +15,4 @@ Render the equation as visible artwork context using the project’s existing ma
 
 Give the work a distinct visual concept, meaningful motion or interaction where appropriate, restrained controls, and a lightweight preview if the collection convention uses one. Avoid adding dependencies unless necessary. Run `npm run typecheck` and `npm run build` after changes.
 
-When the artwork is complete and validation passes, open a draft pull request for the changes, or update the existing pull request that backs the current branch. Keep it draft until the requested work is complete.
+When the artwork is complete and validation passes, open a pull request ready for review for the changes, or update the existing pull request that backs the current branch. Never open a draft pull request.
