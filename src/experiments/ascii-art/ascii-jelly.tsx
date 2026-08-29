@@ -1,0 +1,7 @@
+import { useEffect, useRef } from 'react'
+import type { ExperimentRendererProps } from '../types'
+
+export default function AsciiJelly({mode='stage'}:ExperimentRendererProps){const ref=useRef<HTMLCanvasElement>(null)
+ useEffect(()=>{const c=ref.current,g=c?.getContext('2d');if(!c||!g)return;const compact=mode==='preview';let t=0,raf=0
+ const draw=()=>{const b=c.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,compact?1.1:1.6);c.width=b.width*d;c.height=b.height*d;g.setTransform(d,0,0,d,0,0);g.fillStyle='#020205';g.fillRect(0,0,b.width,b.height);const fs=Math.max(8,Math.min(b.width/68,b.height/44));g.font=`${fs}px ui-monospace,monospace`;g.textAlign='center';g.textBaseline='middle';const cols=Math.ceil(b.width/fs),rows=Math.ceil(b.height/fs),chars=' .,:;+=*#%@'
+ for(let iy=0;iy<rows;iy++)for(let ix=0;ix<cols;ix++){const nx=(ix/cols-.5)*2,ny=(iy/rows-.43)*2;let v=0;const bell=(nx/.48)**2+((ny+.18)/.36)**2;if(ny<.15&&bell<1){v=(1-bell)*.85+.25*Math.sin(nx*13+t*2)*Math.sin(ny*9-t)}else if(ny>.05&&ny<1.1&&Math.abs(nx)<.55){for(let k=-4;k<=4;k++){const base=k*.105;const curve=base+.055*Math.sin(ny*7+t*1.5+k);const dist=Math.abs(nx-curve);if(dist<.035)v=Math.max(v,.75-dist*12)}}if(v>.08){const ci=Math.min(chars.length-1,Math.floor(v*(chars.length-1)));g.fillStyle=`rgba(${150+ci*9},${145+ci*6},255,${.22+v*.62})`;g.fillText(chars[ci],ix*fs,iy*fs)}}t+=.014;raf=requestAnimationFrame(draw)};draw();return()=>cancelAnimationFrame(raf)},[mode]);return <canvas ref={ref} style={{width:'100%',height:'100%',display:'block'}} aria-label="ASCII Jelly artwork"/>}
