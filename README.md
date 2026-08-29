@@ -1,26 +1,64 @@
+<div align="center">
+
 # Formarium
 
-A personal interactive library of computational art experiments.
+### A living archive of visual experiments.
 
-Formarium is a **library first**: the catalog lets visitors browse distinct art forms, enter a collection, and explore every work in that medium. Individual experiments then open into their own live, interactive view.
+Mathematical forms, ASCII studies, particle systems, shaders, and whatever comes next — collected in one quietly playful, interactive library.
 
-## Initial catalog
+[Explore the catalog](#the-catalog) · [Run it locally](#development) · [Add an experiment](#adding-an-experiment)
 
-- Mathematical Art
-- ASCII Art
-- Particle Art
-- Abstract Art
+</div>
 
-The catalog is data-driven so new art forms can be added without redesigning the application.
+![An orbital field of luminous computational threads](docs/README-assets/orbital-field.png)
+
+## What is Formarium?
+
+Formarium is a library-first home for computational art. Browse by art form, open a work, and spend a little time with the system behind it. Each experiment is a self-contained React boundary, so the library can hold very different kinds of runtimes without flattening them into one visual language.
+
+The catalog is data-driven: new collections and experiments can be added without redesigning the application.
+
+## The catalog
+
+| Collection | What to expect |
+| --- | --- |
+| **Mathematical Art** | Parametric curves, attractors, fields, and trigonometric studies |
+| **ASCII Art** | Glyphs, typographic landscapes, and low-resolution visual systems |
+| **Particle Art** | Flocks, fields, swarms, and emergent motion |
+| **Abstract Art** | Shader-like compositions, light, texture, and atmosphere |
+
+![A luminous mathematical bloom made from layered parametric curves](docs/README-assets/mathematical-bloom.png)
+
+## Designed for experimentation
+
+- **Library first** — browse collections and works before committing to a runtime.
+- **Lazy by default** — full artwork modules load only when an experiment is opened.
+- **Preview-aware** — cards use lightweight preview renderers and mount them near the viewport.
+- **Runtime-agnostic** — Canvas, WebGL, WebGPU, p5.js, Three.js, shaders, ASCII, or plain React can live behind the same boundary.
+- **Small, legible architecture** — metadata, registries, routes, and renderers have clear jobs.
+
+![An ASCII-inspired landscape dissolving into a particle field](docs/README-assets/ascii-field.png)
+
+## How an experiment travels
+
+```text
+collection metadata
+        ↓
+catalog card → lightweight preview
+        ↓
+experiment route
+        ↓
+ExperimentHost → stage renderer registry → lazy artwork module
+```
+
+The catalog never needs to know how an artwork works. It only needs its metadata and a registered preview or stage renderer.
 
 ## Stack
 
-- React
+- React 19
 - TypeScript
 - Vite
 - TanStack Router with file-based routing
-
-Individual art experiments are intentionally runtime-agnostic. A work can use p5.js, Three.js, Canvas, WebGL, WebGPU, GLSL/WGSL, ASCII rendering, or plain React without forcing the rest of the library to use the same technology.
 
 ## Routes
 
@@ -31,53 +69,6 @@ Individual art experiments are intentionally runtime-agnostic. A work can use p5
 /experiment/$slug              individual live experiment
 ```
 
-## Structure
-
-```text
-src/
-├── components/                shared library/catalog UI + experiment hosts
-├── data/                      collection + experiment metadata
-├── experiments/               artwork modules + stage/preview registries
-├── routes/                    TanStack Router file routes
-└── styles/                    application styles
-```
-
-## Experiment runtime
-
-The catalog only knows an experiment's metadata. The detail route hands that metadata to `ExperimentHost`, which looks up a lazily-loaded stage renderer by slug.
-
-```text
-Experiment metadata
-        ↓
-ExperimentHost
-        ↓
-stage renderer registry
-        ↓
-lazy artwork module
-```
-
-Every artwork module exposes a React component as its boundary. Inside that boundary it can mount and clean up any visual technology it needs: Canvas, p5.js, Three.js, WebGL/WebGPU, shaders, ASCII renderers, or plain React.
-
-## Catalog previews
-
-Cards use a separate lazy preview registry instead of automatically loading the full artwork. `ExperimentPreview` also uses `IntersectionObserver`, so previews mount only when their cards are near the viewport and unmount when they leave it.
-
-```text
-catalog card
-    ↓
-ExperimentPreview
-    ↓
-preview renderer registry
-    ↓
-lightweight animated preview
-```
-
-An experiment can share rendering code between its stage and preview, or provide a deliberately cheaper preview when its full runtime is expensive.
-
-## First experiment
-
-`Jellyfish Study 01` is the first Mathematical Art entry. It is a Canvas point-cloud study built from layered trigonometric rings, radial deformation, and oscillating tentacle functions. Its catalog preview uses a reduced point count while the detail page renders the denser version.
-
 ## Development
 
 ```bash
@@ -85,30 +76,51 @@ npm install
 npm run dev
 ```
 
-Production build:
+For a production build:
 
 ```bash
 npm run build
 ```
 
+Type-check the project with:
+
+```bash
+npm run typecheck
+```
+
 ## Adding an experiment
 
-1. Add its metadata to `src/data/library.ts`.
-2. Create its full renderer under `src/experiments/<art-form>/<slug>.tsx`.
+1. Add metadata to `src/data/library.ts`.
+2. Create the full renderer under `src/experiments/<art-form>/<slug>.tsx`.
 3. Create a preview renderer under `src/experiments/<art-form>/<slug>.preview.tsx`.
 4. Export both as default React components.
-5. Register the stage and preview dynamic imports in `src/experiments/registry.ts`.
-
-Example:
+5. Register their dynamic imports in `src/experiments/registry.ts`.
 
 ```ts
 const stageLoaders = {
-  'particle-rose': () => import('./particle-art/particle-rose'),
+  'my-new-work': () => import('./particle-art/my-new-work'),
 }
 
 const previewLoaders = {
-  'particle-rose': () => import('./particle-art/particle-rose.preview'),
+  'my-new-work': () => import('./particle-art/my-new-work.preview'),
 }
 ```
 
-This keeps the library scalable: browsing the catalog does not require downloading every full artwork runtime.
+This separation keeps browsing fast while leaving each artwork free to be as strange, dense, or computationally ambitious as it needs to be.
+
+## Project structure
+
+```text
+src/
+├── components/                shared library, catalog, and experiment UI
+├── data/                      collection and experiment metadata
+├── experiments/               artwork modules and renderer registries
+├── routes/                    TanStack Router file routes
+└── styles/                    application styles
+```
+
+<div align="center">
+
+Made for curious systems, beautiful accidents, and the next experiment.
+
+</div>
