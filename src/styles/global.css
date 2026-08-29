@@ -81,6 +81,16 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monos
 .experiment-info dl div { display: grid; grid-template-columns: 90px 1fr; gap: 12px; padding: 12px 0; border-top: 1px solid #202020; font-size: 12px; }
 .experiment-info dt { color: #666; }
 .experiment-info dd { margin: 0; color: #aaa; }
+.experiment-function dd { display: grid; gap: 7px; }
+.experiment-function code {
+  display: block;
+  overflow-x: auto;
+  color: #e7e7e7;
+  font-size: 11px;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+.experiment-function dd span { color: #666; font-size: 11px; line-height: 1.45; }
 
 @media (max-width: 760px) {
   .site-header { padding: 18px; }

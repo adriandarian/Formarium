@@ -43,6 +43,15 @@ function ExperimentPage() {
         <h1>{experiment.title}</h1>
         <p>{experiment.description}</p>
         <dl>
+          {experiment.mathFunction && (
+            <div className="experiment-function">
+              <dt>Function</dt>
+              <dd>
+                <code>{experiment.mathFunction}</code>
+                <span>rose radius with a slowly drifting petal count</span>
+              </dd>
+            </div>
+          )}
           <div>
             <dt>Runtime</dt>
             <dd>{experiment.runtime}</dd>
