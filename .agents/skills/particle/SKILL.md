@@ -15,4 +15,4 @@ Build a visually coherent system with explicit initialization, resize handling, 
 
 Run `npm run typecheck` and `npm run build` after changes.
 
-When the artwork is complete and validation passes, open a draft pull request for the changes, or update the existing pull request that backs the current branch. Keep it draft until the requested work is complete.
+When the artwork is complete and validation passes, open a pull request ready for review for the changes, or update the existing pull request that backs the current branch. Never open a draft pull request.
