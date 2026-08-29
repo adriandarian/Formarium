@@ -15,7 +15,7 @@ function RootLayout() {
           <Link to="/" activeOptions={{ exact: true }}>
             Library
           </Link>
-          <Link to="/catalog">Catalog</Link>
+          <Link to="/catalog" search={{ q: '', runtime: 'all' }}>Catalog</Link>
         </nav>
       </header>
       <main>

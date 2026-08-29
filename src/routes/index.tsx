@@ -15,7 +15,7 @@ function LibraryPage() {
         <p>
           Mathematical forms, ASCII studies, particle systems, shaders, and whatever comes next.
         </p>
-        <Link className="text-link" to="/catalog">
+        <Link className="text-link" to="/catalog" search={{ q: '', runtime: 'all' }}>
           Browse the catalog →
         </Link>
       </div>

@@ -43,6 +43,18 @@ function ExperimentPage() {
         <h1>{experiment.title}</h1>
         <p>{experiment.description}</p>
         <dl>
+          {experiment.slug === 'orbital-bloom' && (
+            <div className="experiment-function">
+              <dt>Function</dt>
+              <dd>
+                <span className="math-equation" aria-label="r of theta equals a times sine of k theta; k approximately equals 5 plus 0.75 times sine of 0.27 t">
+                  <span>r(θ) = a · sin(kθ)</span>
+                  <span>k ≈ 5 + 0.75 sin(0.27t)</span>
+                </span>
+                <span className="math-caption">rose radius with a slowly drifting petal count</span>
+              </dd>
+            </div>
+          )}
           <div>
             <dt>Runtime</dt>
             <dd>{experiment.runtime}</dd>
