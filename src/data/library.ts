@@ -1,18 +1,10 @@
-import {
-  abstractArtCollection,
-  abstractArtExperiments,
-} from './collections/abstract-art'
-import { asciiArtCollection, asciiArtExperiments } from './collections/ascii-art'
-import {
-  mathematicalArtCollection,
-  mathematicalArtExperiments,
-} from './collections/mathematical-art'
-import {
-  particleArtCollection,
-  particleArtExperiments,
-} from './collections/particle-art'
+import { abstractArtCollection } from './collections/abstract-art'
+import { asciiArtCollection } from './collections/ascii-art'
+import { mathematicalArtCollection } from './collections/mathematical-art'
+import { particleArtCollection } from './collections/particle-art'
 import { collectionSlugs } from './types'
 import type { Collection, Experiment } from './types'
+import type { ExperimentDefinitionModule } from '../experiments/types'
 
 export { collectionSlugs }
 export type { ArtRuntime, Collection, CollectionSlug, Experiment } from './types'
@@ -24,12 +16,25 @@ export const collections: Collection[] = [
   abstractArtCollection,
 ]
 
-export const experiments: Experiment[] = [
-  ...mathematicalArtExperiments,
-  ...asciiArtExperiments,
-  ...particleArtExperiments,
-  ...abstractArtExperiments,
-]
+const definitionModules = import.meta.glob<ExperimentDefinitionModule>(
+  '../experiments/*/*.meta.ts',
+  { eager: true },
+)
+
+const collectionOrder = new Map(
+  collections.map((collection, index) => [collection.slug, index]),
+)
+
+export const experiments: Experiment[] = Object.values(definitionModules)
+  .map((module) => module.default.experiment)
+  .sort((a, b) => {
+    const collectionDelta =
+      (collectionOrder.get(a.collection) ?? Number.MAX_SAFE_INTEGER) -
+      (collectionOrder.get(b.collection) ?? Number.MAX_SAFE_INTEGER)
+    if (collectionDelta !== 0) return collectionDelta
+    if (a.createdAt !== b.createdAt) return (a.createdAt ?? '').localeCompare(b.createdAt ?? '')
+    return a.title.localeCompare(b.title)
+  })
 
 export function getCollection(slug: string) {
   return collections.find((collection) => collection.slug === slug)

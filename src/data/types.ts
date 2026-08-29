@@ -31,5 +31,6 @@ export interface Experiment {
   description: string
   tags: string[]
   runtime: ArtRuntime
+  mathFunction?: string
   createdAt?: string
 }
