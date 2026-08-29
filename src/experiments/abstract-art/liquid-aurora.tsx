@@ -1,0 +1,9 @@
+import { useEffect,useRef } from 'react'
+import type { ExperimentRendererProps } from '../types'
+const VS=`#version 300 es
+const vec2 P[3]=vec2[](vec2(-1.,-1.),vec2(3.,-1.),vec2(-1.,3.));void main(){gl_Position=vec4(P[gl_VertexID],0.,1.);}`
+const FS=`#version 300 es
+precision highp float;uniform vec2 r;uniform float t;out vec4 o;
+vec3 pal(float x){return .55+.45*cos(6.283*(vec3(.04,.34,.68)+x));}
+void main(){vec2 uv=(gl_FragCoord.xy-.5*r)/min(r.x,r.y);vec3 col=vec3(.005,.008,.025);for(int i=0;i<7;i++){float q=float(i);float y=.16*sin(uv.x*(2.3+q*.18)+t*(.22+q*.025)+q)+.06*sin(uv.x*7.-t*.35+q);float d=abs(uv.y-y+(q-3.)*.055);float band=.011/(d*d*18.+.02);col+=pal(q*.12+uv.x*.09+t*.018)*band*.085;}col+=vec3(.02,.04,.09)/(1.+18.*dot(uv,uv));o=vec4(1.-exp(-col),1.);}`
+export default function LiquidAurora({mode='stage'}:ExperimentRendererProps){const ref=useRef<HTMLCanvasElement>(null);useEffect(()=>{const c=ref.current,gl=c?.getContext('webgl2');if(!c||!gl)return;const sh=(ty:number,s:string)=>{const q=gl.createShader(ty)!;gl.shaderSource(q,s);gl.compileShader(q);return q},p=gl.createProgram()!;gl.attachShader(p,sh(gl.VERTEX_SHADER,VS));gl.attachShader(p,sh(gl.FRAGMENT_SHADER,FS));gl.linkProgram(p);gl.useProgram(p);const ur=gl.getUniformLocation(p,'r'),ut=gl.getUniformLocation(p,'t');let raf=0,start=performance.now();const draw=()=>{const b=c.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,mode==='preview'?1:1.5);c.width=Math.max(1,b.width*d);c.height=Math.max(1,b.height*d);gl.viewport(0,0,c.width,c.height);gl.uniform2f(ur,c.width,c.height);gl.uniform1f(ut,(performance.now()-start)/1000);gl.drawArrays(gl.TRIANGLES,0,3);raf=requestAnimationFrame(draw)};draw();return()=>cancelAnimationFrame(raf)},[mode]);return <canvas ref={ref} style={{width:'100%',height:'100%',display:'block'}} aria-label="Liquid Aurora shader artwork"/>}
