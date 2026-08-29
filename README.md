@@ -6,7 +6,7 @@
 
 Mathematical forms, ASCII studies, particle systems, shaders, and whatever comes next — collected in one quietly playful, interactive library.
 
-[Explore the catalog](#the-catalog) · [Run it locally](#development) · [Add an experiment](#adding-an-experiment)
+[Explore the catalog](#the-catalog)
 
 </div>
 
@@ -39,85 +39,9 @@ The catalog is data-driven: new collections and experiments can be added without
 
 ![An ASCII-inspired landscape dissolving into a particle field](docs/README-assets/ascii-field.png)
 
-## How an experiment travels
+## Spend some time with the work
 
-```text
-collection metadata
-        ↓
-catalog card → lightweight preview
-        ↓
-experiment route
-        ↓
-ExperimentHost → stage renderer registry → lazy artwork module
-```
-
-The catalog never needs to know how an artwork works. It only needs its metadata and a registered preview or stage renderer.
-
-## Stack
-
-- React 19
-- TypeScript
-- Vite
-- TanStack Router with file-based routing
-
-## Routes
-
-```text
-/                              all experiments
-/catalog                       browse art forms
-/catalog/$collection           one art-form collection
-/experiment/$slug              individual live experiment
-```
-
-## Development
-
-```bash
-npm install
-npm run dev
-```
-
-For a production build:
-
-```bash
-npm run build
-```
-
-Type-check the project with:
-
-```bash
-npm run typecheck
-```
-
-## Adding an experiment
-
-1. Add metadata to `src/data/library.ts`.
-2. Create the full renderer under `src/experiments/<art-form>/<slug>.tsx`.
-3. Create a preview renderer under `src/experiments/<art-form>/<slug>.preview.tsx`.
-4. Export both as default React components.
-5. Register their dynamic imports in `src/experiments/registry.ts`.
-
-```ts
-const stageLoaders = {
-  'my-new-work': () => import('./particle-art/my-new-work'),
-}
-
-const previewLoaders = {
-  'my-new-work': () => import('./particle-art/my-new-work.preview'),
-}
-```
-
-This separation keeps browsing fast while leaving each artwork free to be as strange, dense, or computationally ambitious as it needs to be.
-
-## Project structure
-
-```text
-src/
-├── components/                shared library, catalog, and experiment UI
-├── data/                      collection and experiment metadata
-├── experiments/               artwork modules and renderer registries
-├── routes/                    TanStack Router file routes
-└── styles/                    application styles
-```
+Open a piece, watch it move, and follow the small rules that make it behave. Some works are delicate and mathematical; others are noisy, strange, or almost meditative. The point is to leave room for each experiment to become itself.
 
 <div align="center">
 
