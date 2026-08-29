@@ -465,10 +465,12 @@
 
 .collection-hero h1 {
   margin: auto 0 24px;
+  max-width: 100%;
   font-size: clamp(58px, 6.5vw, 112px);
   line-height: .84;
   letter-spacing: -.068em;
   font-weight: 420;
+  overflow-wrap: anywhere;
 }
 
 .collection-hero__copy > p {
@@ -763,7 +765,7 @@
   }
 
   .collection-hero h1 {
-    font-size: clamp(54px, 17vw, 82px);
+    font-size: clamp(48px, 14vw, 72px);
   }
 
   .collection-hero__visual,
