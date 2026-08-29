@@ -6,6 +6,7 @@ export const mathematicalStageLoaders = {
   'harmonic-moth': () => import('../mathematical-art/harmonic-moth'),
   'fourier-seraph': () => import('../mathematical-art/fourier-seraph'),
   'turbulent-filament': () => import('../mathematical-art/turbulent-filament'),
+  'whispering-lantern': () => import('../mathematical-art/whispering-lantern'),
 } satisfies Record<string, ExperimentLoader>
 
 export const mathematicalPreviewLoaders = {
@@ -14,4 +15,5 @@ export const mathematicalPreviewLoaders = {
   'harmonic-moth': () => import('../mathematical-art/harmonic-moth.preview'),
   'fourier-seraph': () => import('../mathematical-art/fourier-seraph.preview'),
   'turbulent-filament': () => import('../mathematical-art/turbulent-filament.preview'),
+  'whispering-lantern': () => import('../mathematical-art/whispering-lantern.preview'),
 } satisfies Record<string, ExperimentLoader>
