@@ -4,7 +4,7 @@ export const mathematicalArtCollection: Collection = {
   slug: 'mathematical-art',
   title: 'Mathematical Art',
   description: 'Animated forms and systems shaped by equations, functions, and procedural motion.',
-  featuredExperimentSlug: 'orbital-bloom',
+  featuredExperimentSlug: 'harmonic-moth',
 }
 
 export const mathematicalArtExperiments: Experiment[] = [
@@ -25,6 +25,16 @@ export const mathematicalArtExperiments: Experiment[] = [
     description:
       'A breathing rose curve assembled from hundreds of orbiting points, layered phase offsets, and slowly drifting harmonic frequencies.',
     tags: ['rose curve', 'harmonics', 'parametric', 'point field'],
+    runtime: 'canvas',
+    createdAt: '2026-08-28',
+  },
+  {
+    slug: 'harmonic-moth',
+    title: 'Harmonic Moth',
+    collection: 'mathematical-art',
+    description:
+      'A bilateral organism generated from coupled sine fields, mirrored parametric wings, and slowly shifting harmonic interference.',
+    tags: ['harmonics', 'symmetry', 'parametric', 'creature'],
     runtime: 'canvas',
     createdAt: '2026-08-28',
   },
