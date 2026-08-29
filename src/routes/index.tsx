@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { experiments } from '../data/library'
 import { ExperimentCard } from '../components/ExperimentCard'
+import orbitalFieldArtwork from '../assets/orbital-field-concept.png'
 
 export const Route = createFileRoute('/')({
   component: LibraryPage,
@@ -8,21 +9,23 @@ export const Route = createFileRoute('/')({
 
 function LibraryPage() {
   return (
-    <section className="page">
-      <div className="page-heading page-heading--hero">
-        <p className="eyebrow">Personal computational art library</p>
-        <h1>A living archive of visual experiments.</h1>
-        <p>
-          Mathematical forms, ASCII studies, particle systems, shaders, and whatever comes next.
-        </p>
-        <Link className="text-link" to="/catalog" search={{ q: '', runtime: 'all' }}>
-          Browse the catalog →
-        </Link>
+    <section className="page page--landing">
+      <div className="landing-hero">
+        <OrbitalField />
+        <div className="page-heading page-heading--hero">
+          <p className="eyebrow">Personal computational art library</p>
+          <h1>A living archive of visual experiments.</h1>
+          <p>
+            Mathematical forms, ASCII studies, particle systems, shaders, and whatever comes next.
+          </p>
+          <Link className="text-link" to="/catalog" search={{ q: '', runtime: 'all' }}>
+            Browse the catalog →
+          </Link>
+        </div>
       </div>
 
       <div className="section-heading">
         <h2>Library</h2>
-        <span>{experiments.length} works</span>
       </div>
 
       {experiments.length ? (
@@ -38,5 +41,16 @@ function LibraryPage() {
         </div>
       )}
     </section>
+  )
+}
+
+function OrbitalField() {
+  return (
+    <img
+      className="orbital-field"
+      src={orbitalFieldArtwork}
+      alt=""
+      aria-hidden="true"
+    />
   )
 }
