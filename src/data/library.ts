@@ -58,7 +58,18 @@ export const collections: Collection[] = [
 
 // Experiments are intentionally data-driven. Add each new work here and give its
 // interactive renderer a matching module under src/experiments/.
-export const experiments: Experiment[] = []
+export const experiments: Experiment[] = [
+  {
+    slug: 'jellyfish-study-01',
+    title: 'Jellyfish Study 01',
+    collection: 'mathematical-art',
+    description:
+      'A point-cloud organism built from layered trigonometric rings, radial deformation, and oscillating tentacle functions.',
+    tags: ['parametric', 'trigonometry', 'point cloud', 'organic motion'],
+    runtime: 'canvas',
+    createdAt: '2026-08-28',
+  },
+]
 
 export function getCollection(slug: string) {
   return collections.find((collection) => collection.slug === slug)

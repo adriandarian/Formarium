@@ -49,21 +49,31 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monos
 .collection-card__preview { aspect-ratio: 16 / 9; background: radial-gradient(circle at 70% 35%, #303030 0, #151515 25%, #0b0b0b 66%); border-bottom: 1px solid #202020; }
 .collection-card__body, .experiment-card__body { padding: 18px 18px 22px; }
 .collection-card__meta, .experiment-card__meta { display: flex; justify-content: space-between; gap: 12px; color: #696969; font-size: 10px; text-transform: uppercase; letter-spacing: .08em; }
+.experiment-card__meta span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: right; }
 .collection-card h2, .experiment-card h2 { margin: 24px 0 8px; font-size: 24px; font-weight: 480; letter-spacing: -.025em; }
 .collection-card p, .experiment-card p { margin: 0; max-width: 560px; color: #898989; font-size: 13px; line-height: 1.55; }
-.experiment-card__preview { display: grid; place-items: center; aspect-ratio: 4 / 3; color: #4d4d4d; font-size: 11px; background: #050505; border-bottom: 1px solid #202020; }
+.experiment-card__preview { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: #030303; border-bottom: 1px solid #202020; }
+.experiment-preview, .experiment-preview__idle { width: 100%; height: 100%; }
+.experiment-preview { pointer-events: none; }
+.experiment-preview__idle { background: #050505; }
 
 .empty-state { display: grid; place-items: center; min-height: 300px; padding: 40px; border: 1px dashed #2b2b2b; border-radius: 14px; text-align: center; color: #6f6f6f; }
 .empty-state p { margin: 0 0 6px; color: #c6c6c6; }
 .empty-state span { font-size: 12px; }
 
 .experiment-page { min-height: calc(100vh - 65px); display: grid; grid-template-columns: minmax(0, 1fr) 360px; }
-.experiment-stage { min-height: 720px; background: #030303; color: #454545; font-size: 12px; }
-.experiment-host { position: relative; width: 100%; min-height: inherit; overflow: hidden; }
+.experiment-stage { height: calc(100vh - 65px); min-height: 720px; background: #030303; color: #454545; font-size: 12px; }
+.experiment-host { position: relative; width: 100%; overflow: hidden; }
+.experiment-host--stage { height: 100%; min-height: inherit; }
+.experiment-host--preview { width: 100%; height: 100%; min-height: 0; }
 .experiment-runtime-state { display: grid; place-items: center; align-content: center; width: 100%; min-height: inherit; padding: 40px; text-align: center; color: #666; }
+.experiment-host--preview .experiment-runtime-state { height: 100%; min-height: 0; padding: 20px; font-size: 11px; }
 .experiment-runtime-state p { margin: 0 0 8px; color: #aaa; }
 .experiment-runtime-state span { max-width: 460px; line-height: 1.6; }
 .experiment-runtime-state code { color: #8f8f8f; }
+.artwork-canvas-wrap { width: 100%; height: 100%; min-height: inherit; overflow: hidden; background: #030303; }
+.experiment-host--preview .artwork-canvas-wrap { min-height: 0; }
+.artwork-canvas { display: block; width: 100%; height: 100%; }
 .experiment-info { padding: 42px 28px; border-left: 1px solid #202020; }
 .experiment-info h1 { margin: 18px 0 12px; font-size: 34px; font-weight: 500; letter-spacing: -.04em; }
 .experiment-info > p { color: #8d8d8d; line-height: 1.6; }
@@ -77,6 +87,6 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monos
   .page { padding: 54px 18px 72px; }
   .catalog-grid, .experiment-grid { grid-template-columns: 1fr; }
   .experiment-page { grid-template-columns: 1fr; }
-  .experiment-stage { min-height: 65vh; }
+  .experiment-stage { height: 65vh; min-height: 420px; }
   .experiment-info { border-left: 0; border-top: 1px solid #202020; }
 }
