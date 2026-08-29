@@ -16,6 +16,7 @@ export const mathematicalArtExperiments: Experiment[] = [
       'A point-cloud organism built from layered trigonometric rings, radial deformation, and oscillating tentacle functions.',
     tags: ['parametric', 'trigonometry', 'point cloud', 'organic motion'],
     runtime: 'canvas',
+    mathFunction: 'r(θ, t) = (0.17 + sin(πv) · 0.83) · s + 0.035s · sin(1.8t + 6.5v)',
     createdAt: '2026-08-28',
   },
   {
@@ -37,6 +38,7 @@ export const mathematicalArtExperiments: Experiment[] = [
       'A bilateral organism generated from coupled sine fields, mirrored parametric wings, and slowly shifting harmonic interference.',
     tags: ['harmonics', 'symmetry', 'parametric', 'creature'],
     runtime: 'canvas',
+    mathFunction: 'y(x, t) = sin(3x + t) · cos(2x − 0.7t),  x ∈ [−π, π]',
     createdAt: '2026-08-28',
   },
 ]
