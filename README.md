@@ -10,7 +10,7 @@ Mathematical forms, ASCII studies, particle systems, shaders, and whatever comes
 
 </div>
 
-![An orbital field of luminous computational threads](docs/README-assets/orbital-field.png)
+![An orbital field of luminous computational threads](assets/orbital-field.png)
 
 ## What is Formarium?
 
@@ -27,7 +27,7 @@ The catalog is data-driven: new collections and experiments can be added without
 | **Particle Art** | Flocks, fields, swarms, and emergent motion |
 | **Abstract Art** | Shader-like compositions, light, texture, and atmosphere |
 
-![A luminous mathematical bloom made from layered parametric curves](docs/README-assets/mathematical-bloom.png)
+![A luminous mathematical bloom made from layered parametric curves](assets/mathematical-bloom.png)
 
 ## Designed for experimentation
 
@@ -37,7 +37,7 @@ The catalog is data-driven: new collections and experiments can be added without
 - **Runtime-agnostic** — Canvas, WebGL, WebGPU, p5.js, Three.js, shaders, ASCII, or plain React can live behind the same boundary.
 - **Small, legible architecture** — metadata, registries, routes, and renderers have clear jobs.
 
-![An ASCII-inspired landscape dissolving into a particle field](docs/README-assets/ascii-field.png)
+![An ASCII-inspired landscape dissolving into a particle field](assets/ascii-field.png)
 
 ## Spend some time with the work
 
