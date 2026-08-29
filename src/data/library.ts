@@ -32,7 +32,7 @@ export const experiments: Experiment[] = Object.values(definitionModules)
       (collectionOrder.get(a.collection) ?? Number.MAX_SAFE_INTEGER) -
       (collectionOrder.get(b.collection) ?? Number.MAX_SAFE_INTEGER)
     if (collectionDelta !== 0) return collectionDelta
-    if (a.createdAt !== b.createdAt) return a.createdAt.localeCompare(b.createdAt)
+    if (a.createdAt !== b.createdAt) return (a.createdAt ?? '').localeCompare(b.createdAt ?? '')
     return a.title.localeCompare(b.title)
   })
 

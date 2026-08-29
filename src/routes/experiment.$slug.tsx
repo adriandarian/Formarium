@@ -45,10 +45,11 @@ function ExperimentPage() {
         <dl>
           {experiment.mathFunction && (
             <div className="experiment-function">
-              <dt>Function</dt>
+              <dt>Math</dt>
               <dd>
-                <code>{experiment.mathFunction}</code>
-                <span>rose radius with a slowly drifting petal count</span>
+                <span className="math-equation" aria-label={experiment.mathFunction}>
+                  {experiment.mathFunction}
+                </span>
               </dd>
             </div>
           )}

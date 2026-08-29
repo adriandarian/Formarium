@@ -22,7 +22,7 @@ function CollectionPage() {
       <section className="page">
         <div className="empty-state">
           <p>Collection not found.</p>
-          <Link className="text-link" to="/catalog">
+          <Link className="text-link" to="/catalog" search={{ q: '', runtime: 'all' }}>
             Return to catalog →
           </Link>
         </div>
@@ -37,7 +37,7 @@ function CollectionPage() {
 
   return (
     <section className="page collection-page">
-      <Link className="eyebrow text-link collection-back" to="/catalog">
+      <Link className="eyebrow text-link collection-back" to="/catalog" search={{ q: '', runtime: 'all' }}>
         ← Catalog index
       </Link>
 
