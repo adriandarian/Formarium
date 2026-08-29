@@ -2,7 +2,7 @@
 
 A personal interactive library of computational art experiments.
 
-Formarium is a **library first**: the catalog lets visitors browse distinct art forms, enter a collection, and explore every work in that medium. Individual experiments can then open into their own live, interactive view.
+Formarium is a **library first**: the catalog lets visitors browse distinct art forms, enter a collection, and explore every work in that medium. Individual experiments then open into their own live, interactive view.
 
 ## Initial catalog
 
@@ -35,12 +35,28 @@ Individual art experiments are intentionally runtime-agnostic. A work can use p5
 
 ```text
 src/
-├── components/                shared library/catalog UI
+├── components/                shared library/catalog UI + ExperimentHost
 ├── data/                      collection + experiment metadata
-├── experiments/               live artwork implementations (next step)
+├── experiments/               live artwork modules + renderer registry
 ├── routes/                    TanStack Router file routes
 └── styles/                    application styles
 ```
+
+## Experiment runtime
+
+The catalog only knows an experiment's metadata. The detail route hands that metadata to `ExperimentHost`, which looks up a lazily-loaded renderer by slug.
+
+```text
+Experiment metadata
+        ↓
+ExperimentHost
+        ↓
+renderer registry
+        ↓
+lazy artwork module
+```
+
+Every artwork module exposes a React component as its boundary. Inside that boundary it can mount and clean up any visual technology it needs: Canvas, p5.js, Three.js, WebGL/WebGPU, shaders, ASCII renderers, or plain React.
 
 ## Development
 
@@ -58,7 +74,16 @@ npm run build
 ## Adding an experiment
 
 1. Add its metadata to `src/data/library.ts`.
-2. Add its interactive implementation under `src/experiments/<slug>/`.
-3. Mount that renderer in the experiment detail view.
+2. Create its renderer under `src/experiments/<art-form>/<slug>.tsx` (or a folder if the experiment needs multiple files).
+3. Export the renderer as the module's default React component.
+4. Register the slug with a dynamic import in `src/experiments/registry.ts`.
 
-The renderer registry is the next piece of Formarium's architecture and will let each experiment choose its own visual technology while the catalog remains consistent.
+Example registry entry:
+
+```ts
+const loaders = {
+  'particle-rose': () => import('./particle-art/particle-rose'),
+} satisfies Record<string, ExperimentLoader>
+```
+
+This keeps the library lightweight: visitors only download an artwork's renderer when they actually open that experiment.
