@@ -1,0 +1,4 @@
+interface:
+  display_name: Math Art
+  short_description: Turn equations into mathematical artworks
+  default_prompt: Build a Mathematical Art experiment from this equation or rule: 

@@ -1,0 +1,4 @@
+interface:
+  display_name: ASCII Art
+  short_description: Turn text and glyphs into ASCII artworks
+  default_prompt: Build an ASCII Art experiment from this prompt: 

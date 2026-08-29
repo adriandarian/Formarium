@@ -1,0 +1,4 @@
+interface:
+  display_name: Abstract Art
+  short_description: Turn moods and materials into abstract artworks
+  default_prompt: Build an Abstract Art experiment from this prompt: 

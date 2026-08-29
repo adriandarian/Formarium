@@ -1,0 +1,4 @@
+interface:
+  display_name: Particle Art
+  short_description: Turn motion systems into particle artworks
+  default_prompt: Build a Particle Art experiment from this prompt: 
