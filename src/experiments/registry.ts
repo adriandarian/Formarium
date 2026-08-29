@@ -1,4 +1,17 @@
 import { lazy, type LazyExoticComponent } from 'react'
+import {
+  abstractPreviewLoaders,
+  abstractStageLoaders,
+} from './registries/abstract-art'
+import { asciiPreviewLoaders, asciiStageLoaders } from './registries/ascii-art'
+import {
+  mathematicalPreviewLoaders,
+  mathematicalStageLoaders,
+} from './registries/mathematical-art'
+import {
+  particlePreviewLoaders,
+  particleStageLoaders,
+} from './registries/particle-art'
 import type {
   ExperimentLoader,
   ExperimentRenderer,
@@ -6,13 +19,17 @@ import type {
 } from './types'
 
 const stageLoaders = {
-  'jellyfish-study-01': () => import('./mathematical-art/jellyfish-study-01'),
-  'chromatic-portal': () => import('./abstract-art/chromatic-portal'),
+  ...mathematicalStageLoaders,
+  ...asciiStageLoaders,
+  ...particleStageLoaders,
+  ...abstractStageLoaders,
 } satisfies Record<string, ExperimentLoader>
 
 const previewLoaders = {
-  'jellyfish-study-01': () => import('./mathematical-art/jellyfish-study-01.preview'),
-  'chromatic-portal': () => import('./abstract-art/chromatic-portal.preview'),
+  ...mathematicalPreviewLoaders,
+  ...asciiPreviewLoaders,
+  ...particlePreviewLoaders,
+  ...abstractPreviewLoaders,
 } satisfies Record<string, ExperimentLoader>
 
 const stageCache = new Map<string, LazyExoticComponent<ExperimentRenderer>>()
