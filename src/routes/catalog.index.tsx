@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { CollectionCard } from '../components/CollectionCard'
-import { collections, experiments } from '../data/library'
+import { collections, experiments, getFeaturedExperiment } from '../data/library'
 
 export const Route = createFileRoute('/catalog/')({
   component: CatalogPage,
@@ -47,6 +47,7 @@ function CatalogPage() {
           const collectionExperiments = experiments.filter(
             (item) => item.collection === collection.slug,
           )
+          const featuredExperiment = getFeaturedExperiment(collection.slug)
 
           return (
             <CollectionCard
@@ -54,7 +55,7 @@ function CatalogPage() {
               collection={collection}
               count={collectionExperiments.length}
               index={index}
-              featuredExperiment={collectionExperiments[0]}
+              featuredExperiment={featuredExperiment}
             />
           )
         })}
