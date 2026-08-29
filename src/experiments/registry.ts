@@ -1,32 +1,56 @@
 import { lazy, type LazyExoticComponent } from 'react'
-import type { ExperimentLoader, ExperimentRenderer } from './types'
+import type {
+  ExperimentLoader,
+  ExperimentRenderer,
+  ExperimentRenderMode,
+} from './types'
 
-// Keep every artwork behind a dynamic import so opening the library does not
-// download every renderer. Register new experiments here by slug.
-const loaders = {
-  // 'particle-rose': () => import('./particle-art/particle-rose'),
-  // 'jellyfish-01': () => import('./mathematical-art/jellyfish-01'),
+// Full artwork renderers load only on experiment detail pages.
+const stageLoaders = {
+  'jellyfish-study-01': () => import('./mathematical-art/jellyfish-study-01'),
 } satisfies Record<string, ExperimentLoader>
 
-const rendererCache = new Map<string, LazyExoticComponent<ExperimentRenderer>>()
+// Preview renderers are intentionally separate so catalog cards can stay much
+// lighter than the full artwork when an experiment needs a heavy runtime.
+const previewLoaders = {
+  'jellyfish-study-01': () => import('./mathematical-art/jellyfish-study-01.preview'),
+} satisfies Record<string, ExperimentLoader>
 
-export function hasExperimentRenderer(slug: string) {
-  return Object.prototype.hasOwnProperty.call(loaders, slug)
+const stageCache = new Map<string, LazyExoticComponent<ExperimentRenderer>>()
+const previewCache = new Map<string, LazyExoticComponent<ExperimentRenderer>>()
+
+function getRegistry(mode: ExperimentRenderMode) {
+  return mode === 'preview' ? previewLoaders : stageLoaders
 }
 
-export function getExperimentRenderer(slug: string) {
-  const loader = (loaders as Record<string, ExperimentLoader>)[slug]
+function getCache(mode: ExperimentRenderMode) {
+  return mode === 'preview' ? previewCache : stageCache
+}
+
+export function hasExperimentRenderer(
+  slug: string,
+  mode: ExperimentRenderMode = 'stage',
+) {
+  return Object.prototype.hasOwnProperty.call(getRegistry(mode), slug)
+}
+
+export function getExperimentRenderer(
+  slug: string,
+  mode: ExperimentRenderMode = 'stage',
+) {
+  const loader = (getRegistry(mode) as Record<string, ExperimentLoader>)[slug]
 
   if (!loader) {
     return null
   }
 
-  const cached = rendererCache.get(slug)
+  const cache = getCache(mode)
+  const cached = cache.get(slug)
   if (cached) {
     return cached
   }
 
   const renderer = lazy(loader)
-  rendererCache.set(slug, renderer)
+  cache.set(slug, renderer)
   return renderer
 }
