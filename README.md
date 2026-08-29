@@ -39,35 +39,9 @@ The catalog is data-driven: new collections and experiments can be added without
 
 ![An ASCII-inspired landscape dissolving into a particle field](docs/README-assets/ascii-field.png)
 
-## How an experiment travels
+## Spend some time with the work
 
-```text
-collection metadata
-        ↓
-catalog card → lightweight preview
-        ↓
-experiment route
-        ↓
-ExperimentHost → stage renderer registry → lazy artwork module
-```
-
-The catalog never needs to know how an artwork works. It only needs its metadata and a registered preview or stage renderer.
-
-## Stack
-
-- React 19
-- TypeScript
-- Vite
-- TanStack Router with file-based routing
-
-## Routes
-
-```text
-/                              all experiments
-/catalog                       browse art forms
-/catalog/$collection           one art-form collection
-/experiment/$slug              individual live experiment
-```
+Open a piece, watch it move, and follow the small rules that make it behave. Some works are delicate and mathematical; others are noisy, strange, or almost meditative. The point is to leave room for each experiment to become itself.
 
 ## Development
 
@@ -107,17 +81,6 @@ const previewLoaders = {
 ```
 
 This separation keeps browsing fast while leaving each artwork free to be as strange, dense, or computationally ambitious as it needs to be.
-
-## Project structure
-
-```text
-src/
-├── components/                shared library, catalog, and experiment UI
-├── data/                      collection and experiment metadata
-├── experiments/               artwork modules and renderer registries
-├── routes/                    TanStack Router file routes
-└── styles/                    application styles
-```
 
 <div align="center">
 
