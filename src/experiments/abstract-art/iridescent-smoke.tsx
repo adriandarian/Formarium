@@ -1,0 +1,9 @@
+import { useEffect,useRef } from 'react'
+import type { ExperimentRendererProps } from '../types'
+const VS=`#version 300 es
+const vec2 P[3]=vec2[](vec2(-1.,-1.),vec2(3.,-1.),vec2(-1.,3.));void main(){gl_Position=vec4(P[gl_VertexID],0.,1.);}`
+const FS=`#version 300 es
+precision highp float;uniform vec2 r;uniform float t;out vec4 o;
+float n(vec2 p){return sin(p.x)*sin(p.y)+.5*sin(2.1*p.x-1.7*p.y)+.25*sin(4.3*p.x+3.2*p.y);}
+void main(){vec2 p=(gl_FragCoord.xy-.5*r)/min(r.x,r.y);p*=2.2;float f=0.;vec2 q=p;for(int i=0;i<7;i++){float fi=float(i);q+=.18*vec2(sin(q.y*1.4+t*.22+fi),cos(q.x*1.2-t*.18-fi));f+=n(q*(1.+fi*.37)+t*.08)/pow(1.7,fi);}float density=smoothstep(-.5,.85,f)*exp(-.18*dot(p,p));vec3 pearl=.52+.48*cos(vec3(0.,2.1,4.2)+f*1.7+p.y*.9+t*.08);vec3 col=mix(vec3(.006,.008,.015),pearl,density*.72);col+=density*density*vec3(.2,.12,.3);o=vec4(col,1.);}`
+export default function IridescentSmoke({mode='stage'}:ExperimentRendererProps){const ref=useRef<HTMLCanvasElement>(null);useEffect(()=>{const c=ref.current,gl=c?.getContext('webgl2');if(!c||!gl)return;const sh=(ty:number,s:string)=>{const q=gl.createShader(ty)!;gl.shaderSource(q,s);gl.compileShader(q);return q},p=gl.createProgram()!;gl.attachShader(p,sh(gl.VERTEX_SHADER,VS));gl.attachShader(p,sh(gl.FRAGMENT_SHADER,FS));gl.linkProgram(p);gl.useProgram(p);const ur=gl.getUniformLocation(p,'r'),ut=gl.getUniformLocation(p,'t');let raf=0,start=performance.now();const draw=()=>{const b=c.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,mode==='preview'?1:1.5);c.width=Math.max(1,b.width*d);c.height=Math.max(1,b.height*d);gl.viewport(0,0,c.width,c.height);gl.uniform2f(ur,c.width,c.height);gl.uniform1f(ut,(performance.now()-start)/1000);gl.drawArrays(gl.TRIANGLES,0,3);raf=requestAnimationFrame(draw)};draw();return()=>cancelAnimationFrame(raf)},[mode]);return <canvas ref={ref} style={{width:'100%',height:'100%',display:'block'}} aria-label="Iridescent Smoke shader artwork"/>}
