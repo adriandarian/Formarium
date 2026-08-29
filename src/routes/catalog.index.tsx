@@ -85,7 +85,6 @@ function CatalogPage() {
             ))}
           </select>
         </label>
-        <p>{filteredExperiments.length} works in view</p>
       </div>
 
       <div className="catalog-list">
