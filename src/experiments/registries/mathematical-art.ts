@@ -7,6 +7,7 @@ export const mathematicalStageLoaders = {
   'fourier-seraph': () => import('../mathematical-art/fourier-seraph'),
   'turbulent-filament': () => import('../mathematical-art/turbulent-filament'),
   'whispering-lantern': () => import('../mathematical-art/whispering-lantern'),
+  'phase-orbit': () => import('../mathematical-art/phase-orbit'),
 } satisfies Record<string, ExperimentLoader>
 
 export const mathematicalPreviewLoaders = {
@@ -16,4 +17,5 @@ export const mathematicalPreviewLoaders = {
   'fourier-seraph': () => import('../mathematical-art/fourier-seraph.preview'),
   'turbulent-filament': () => import('../mathematical-art/turbulent-filament.preview'),
   'whispering-lantern': () => import('../mathematical-art/whispering-lantern.preview'),
+  'phase-orbit': () => import('../mathematical-art/phase-orbit'),
 } satisfies Record<string, ExperimentLoader>
