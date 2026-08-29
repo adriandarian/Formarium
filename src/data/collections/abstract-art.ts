@@ -4,7 +4,7 @@ export const abstractArtCollection: Collection = {
   slug: 'abstract-art',
   title: 'Abstract Art',
   description: 'Shaders, luminous forms, procedural effects, and visual studies without fixed representation.',
-  featuredExperimentSlug: 'spectral-ember',
+  featuredExperimentSlug: 'prismatic-veil',
 }
 
 export const abstractArtExperiments: Experiment[] = [
@@ -25,6 +25,16 @@ export const abstractArtExperiments: Experiment[] = [
     description:
       'A breathing energy flame built from a raw fragment shader, layered spectral contours, a white-hot core, and drifting sparks.',
     tags: ['webgl', 'fragment shader', 'energy', 'chromatic'],
+    runtime: 'webgl',
+    createdAt: '2026-08-28',
+  },
+  {
+    slug: 'prismatic-veil',
+    title: 'Prismatic Veil',
+    collection: 'abstract-art',
+    description:
+      'A field of translucent spectral curtains woven from layered interference bands, flowing wave equations, and pointer-distorted refraction.',
+    tags: ['webgl', 'fragment shader', 'interference', 'spectral'],
     runtime: 'webgl',
     createdAt: '2026-08-28',
   },

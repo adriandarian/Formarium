@@ -4,7 +4,7 @@ export const asciiArtCollection: Collection = {
   slug: 'ascii-art',
   title: 'ASCII Art',
   description: 'Images, motion, and typography reconstructed through characters and glyphs.',
-  featuredExperimentSlug: 'signal-dunes',
+  featuredExperimentSlug: 'glyph-koi',
 }
 
 export const asciiArtExperiments: Experiment[] = [
@@ -25,6 +25,16 @@ export const asciiArtExperiments: Experiment[] = [
     description:
       'A drifting topographic landscape reconstructed from monospaced glyph density, interference waves, and luminous character ridges.',
     tags: ['ascii', 'landscape', 'wave interference', 'typography'],
+    runtime: 'ascii',
+    createdAt: '2026-08-28',
+  },
+  {
+    slug: 'glyph-koi',
+    title: 'Glyph Koi',
+    collection: 'ascii-art',
+    description:
+      'A recognizable swimming koi reconstructed entirely from animated character density, curved body coordinates, fins, scales, and rippling water glyphs.',
+    tags: ['ascii', 'koi', 'figurative', 'typography'],
     runtime: 'ascii',
     createdAt: '2026-08-28',
   },
