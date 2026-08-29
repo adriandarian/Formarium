@@ -6,9 +6,11 @@ import {
 } from 'react'
 import type { Experiment } from '../data/library'
 import { getExperimentRenderer } from '../experiments/registry'
+import type { ExperimentRenderMode } from '../experiments/types'
 
 interface ExperimentHostProps {
   experiment: Experiment
+  mode?: ExperimentRenderMode
 }
 
 interface ErrorBoundaryProps {
@@ -55,25 +57,32 @@ function RuntimeLoadingState() {
   )
 }
 
-export function ExperimentHost({ experiment }: ExperimentHostProps) {
-  const Renderer = getExperimentRenderer(experiment.slug)
+export function ExperimentHost({
+  experiment,
+  mode = 'stage',
+}: ExperimentHostProps) {
+  const Renderer = getExperimentRenderer(experiment.slug, mode)
 
   if (!Renderer) {
     return (
-      <div className="experiment-runtime-state">
-        <p>Renderer not registered yet.</p>
-        <span>
-          Add the artwork module to <code>src/experiments/registry.ts</code>.
-        </span>
+      <div className={`experiment-host experiment-host--${mode}`}>
+        <div className="experiment-runtime-state">
+          <p>{mode === 'preview' ? 'Preview unavailable.' : 'Renderer not registered yet.'}</p>
+          {mode === 'stage' && (
+            <span>
+              Add the artwork module to <code>src/experiments/registry.ts</code>.
+            </span>
+          )}
+        </div>
       </div>
     )
   }
 
   return (
-    <div className="experiment-host">
-      <ExperimentErrorBoundary key={experiment.slug}>
+    <div className={`experiment-host experiment-host--${mode}`}>
+      <ExperimentErrorBoundary key={`${experiment.slug}:${mode}`}>
         <Suspense fallback={<RuntimeLoadingState />}>
-          <Renderer experiment={experiment} />
+          <Renderer experiment={experiment} mode={mode} />
         </Suspense>
       </ExperimentErrorBoundary>
     </div>
