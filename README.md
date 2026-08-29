@@ -45,6 +45,6 @@ Open a piece, watch it move, and follow the small rules that make it behave. Som
 
 <div align="center">
 
-Made for curious systems, beautiful accidents, and the next experiment.
+❤️ Made for curious systems, beautiful accidents, and the next experiment.
 
 </div>
