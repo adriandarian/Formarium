@@ -1,0 +1,7 @@
+import { useEffect, useRef } from 'react'
+import type { ExperimentRendererProps } from '../types'
+
+export default function NeonCityRain({mode='stage'}:ExperimentRendererProps){const ref=useRef<HTMLCanvasElement>(null)
+ useEffect(()=>{const c=ref.current,g=c?.getContext('2d');if(!c||!g)return;const compact=mode==='preview';let t=0,raf=0
+ const draw=()=>{const b=c.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,compact?1.1:1.6);c.width=b.width*d;c.height=b.height*d;g.setTransform(d,0,0,d,0,0);g.fillStyle='#020208';g.fillRect(0,0,b.width,b.height);const fs=Math.max(8,Math.min(b.width/76,b.height/44));g.font=`${fs}px ui-monospace,monospace`;g.textAlign='center';g.textBaseline='middle';const cols=Math.ceil(b.width/fs),rows=Math.ceil(b.height/fs)
+ for(let iy=0;iy<rows;iy++)for(let ix=0;ix<cols;ix++){const nx=ix/cols,ny=iy/rows;let ch='',col='120,180,255',a=0;const h=.35+.28*((Math.sin(ix*1.37)+1)/2);if(ny>1-h&&ny<.82){if((ix%5===0||ix%7===0)&&iy%3===0){ch=(ix+iy)%2?'#':'+';col=ix%3?'255,70,210':'70,230,255';a=.62}else{ch='|';a=.17}}if(ny>.82){ch=Math.sin(ix*.8+t*3+iy)>.3?'~':'_';col=ix%4?'90,150,255':'255,80,205';a=.18}const rain=(ix*23+iy*17)%31;if(rain<2){const y=((iy+t*36+ix*.7)%rows)/rows;if(Math.abs(ny-y)<.025){ch=rain?'|':'/';col='150,190,255';a=.35}}if(ch){g.fillStyle=`rgba(${col},${a})`;g.fillText(ch,ix*fs,iy*fs)}}t+=.01;raf=requestAnimationFrame(draw)};draw();return()=>cancelAnimationFrame(raf)},[mode]);return <canvas ref={ref} style={{width:'100%',height:'100%',display:'block'}} aria-label="Neon City Rain ASCII artwork"/>}
