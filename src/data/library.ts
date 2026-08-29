@@ -56,8 +56,6 @@ export const collections: Collection[] = [
   },
 ]
 
-// Experiments are intentionally data-driven. Add each new work here and give its
-// interactive renderer a matching module under src/experiments/.
 export const experiments: Experiment[] = [
   {
     slug: 'jellyfish-study-01',
@@ -67,6 +65,16 @@ export const experiments: Experiment[] = [
       'A point-cloud organism built from layered trigonometric rings, radial deformation, and oscillating tentacle functions.',
     tags: ['parametric', 'trigonometry', 'point cloud', 'organic motion'],
     runtime: 'canvas',
+    createdAt: '2026-08-28',
+  },
+  {
+    slug: 'chromatic-portal',
+    title: 'Chromatic Portal',
+    collection: 'abstract-art',
+    description:
+      'A luminous hollow form rendered as a raw WebGL fragment shader, with breathing contours, chromatic glow, and pointer-driven drift.',
+    tags: ['webgl', 'fragment shader', 'glow', 'procedural'],
+    runtime: 'webgl',
     createdAt: '2026-08-28',
   },
 ]
