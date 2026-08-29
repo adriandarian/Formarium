@@ -5,15 +5,14 @@ import type {
   ExperimentRenderMode,
 } from './types'
 
-// Full artwork renderers load only on experiment detail pages.
 const stageLoaders = {
   'jellyfish-study-01': () => import('./mathematical-art/jellyfish-study-01'),
+  'chromatic-portal': () => import('./abstract-art/chromatic-portal'),
 } satisfies Record<string, ExperimentLoader>
 
-// Preview renderers are intentionally separate so catalog cards can stay much
-// lighter than the full artwork when an experiment needs a heavy runtime.
 const previewLoaders = {
   'jellyfish-study-01': () => import('./mathematical-art/jellyfish-study-01.preview'),
+  'chromatic-portal': () => import('./abstract-art/chromatic-portal.preview'),
 } satisfies Record<string, ExperimentLoader>
 
 const stageCache = new Map<string, LazyExoticComponent<ExperimentRenderer>>()
@@ -39,16 +38,11 @@ export function getExperimentRenderer(
   mode: ExperimentRenderMode = 'stage',
 ) {
   const loader = (getRegistry(mode) as Record<string, ExperimentLoader>)[slug]
-
-  if (!loader) {
-    return null
-  }
+  if (!loader) return null
 
   const cache = getCache(mode)
   const cached = cache.get(slug)
-  if (cached) {
-    return cached
-  }
+  if (cached) return cached
 
   const renderer = lazy(loader)
   cache.set(slug, renderer)
