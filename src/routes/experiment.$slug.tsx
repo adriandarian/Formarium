@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
+import { ExperimentHost } from '../components/ExperimentHost'
 import { getCollection, getExperiment } from '../data/library'
 
 export const Route = createFileRoute('/experiment/$slug')({
@@ -27,7 +28,7 @@ function ExperimentPage() {
   return (
     <section className="experiment-page">
       <div className="experiment-stage">
-        <span>Live experiment mount</span>
+        <ExperimentHost experiment={experiment} />
       </div>
       <aside className="experiment-info">
         {collection && (
