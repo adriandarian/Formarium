@@ -1,7 +1,12 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { CollectionPreview } from '../components/CollectionPreview'
 import { ExperimentCard } from '../components/ExperimentCard'
-import { collections, getCollection, getExperimentsForCollection } from '../data/library'
+import {
+  collections,
+  getCollection,
+  getExperimentsForCollection,
+  getFeaturedExperiment,
+} from '../data/library'
 
 export const Route = createFileRoute('/catalog/$collection')({
   component: CollectionPage,
@@ -26,6 +31,7 @@ function CollectionPage() {
   }
 
   const collectionIndex = collections.findIndex((item) => item.slug === collection.slug)
+  const featuredExperiment = getFeaturedExperiment(collection.slug)
   const runtimes = Array.from(new Set(items.map((item) => item.runtime)))
   const tags = Array.from(new Set(items.flatMap((item) => item.tags)))
 
@@ -51,7 +57,7 @@ function CollectionPage() {
         <div className="collection-hero__visual">
           <CollectionPreview
             collection={collection}
-            experiment={items[0]}
+            experiment={featuredExperiment}
             immersive
           />
         </div>
