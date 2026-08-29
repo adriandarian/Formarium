@@ -7,22 +7,57 @@ export const Route = createFileRoute('/catalog/')({
 })
 
 function CatalogPage() {
+  const liveCollections = collections.filter((collection) =>
+    experiments.some((experiment) => experiment.collection === collection.slug),
+  ).length
+
   return (
-    <section className="page">
-      <div className="page-heading">
-        <p className="eyebrow">Catalog</p>
-        <h1>Browse by art form.</h1>
-        <p>Enter a collection to explore every experiment made in that medium.</p>
+    <section className="page catalog-page">
+      <header className="catalog-hero">
+        <div>
+          <p className="eyebrow">Formarium / Catalog</p>
+          <h1>An index of forms.</h1>
+        </div>
+        <div className="catalog-hero__note">
+          <p>
+            Enter through an art form. Each collection gathers every study, specimen,
+            and finished experiment made within that visual language.
+          </p>
+        </div>
+      </header>
+
+      <div className="catalog-ledger" aria-label="Catalog summary">
+        <div>
+          <span>Collections</span>
+          <strong>{String(collections.length).padStart(2, '0')}</strong>
+        </div>
+        <div>
+          <span>Works archived</span>
+          <strong>{String(experiments.length).padStart(2, '0')}</strong>
+        </div>
+        <div>
+          <span>Live collections</span>
+          <strong>{String(liveCollections).padStart(2, '0')}</strong>
+        </div>
+        <p>Growing continuously — no collection is considered complete.</p>
       </div>
 
-      <div className="catalog-grid">
-        {collections.map((collection) => (
-          <CollectionCard
-            key={collection.slug}
-            collection={collection}
-            count={experiments.filter((item) => item.collection === collection.slug).length}
-          />
-        ))}
+      <div className="catalog-list">
+        {collections.map((collection, index) => {
+          const collectionExperiments = experiments.filter(
+            (item) => item.collection === collection.slug,
+          )
+
+          return (
+            <CollectionCard
+              key={collection.slug}
+              collection={collection}
+              count={collectionExperiments.length}
+              index={index}
+              featuredExperiment={collectionExperiments[0]}
+            />
+          )
+        })}
       </div>
     </section>
   )
