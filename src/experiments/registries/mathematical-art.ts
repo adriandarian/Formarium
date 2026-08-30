@@ -8,7 +8,10 @@ export const mathematicalStageLoaders = {
   'turbulent-filament': () => import('../mathematical-art/turbulent-filament'),
   'whispering-lantern': () => import('../mathematical-art/whispering-lantern'),
   'phase-orbit': () => import('../mathematical-art/phase-orbit'),
+  'phase-echo': () => import('../mathematical-art/phase-echo'),
   'whisper-field': () => import('../mathematical-art/whisper-field'),
+  'magnetic-echo': () => import('../mathematical-art/magnetic-echo'),
+  'tidal-cipher': () => import('../mathematical-art/tidal-cipher'),
 } satisfies Record<string, ExperimentLoader>
 
 export const mathematicalPreviewLoaders = {
@@ -19,5 +22,8 @@ export const mathematicalPreviewLoaders = {
   'turbulent-filament': () => import('../mathematical-art/turbulent-filament.preview'),
   'whispering-lantern': () => import('../mathematical-art/whispering-lantern.preview'),
   'phase-orbit': () => import('../mathematical-art/phase-orbit'),
+  'phase-echo': () => import('../mathematical-art/phase-echo'),
   'whisper-field': () => import('../mathematical-art/whisper-field'),
+  'magnetic-echo': () => import('../mathematical-art/magnetic-echo'),
+  'tidal-cipher': () => import('../mathematical-art/tidal-cipher'),
 } satisfies Record<string, ExperimentLoader>
