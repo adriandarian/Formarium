@@ -39,12 +39,13 @@ export default function PhaseOrbit({ experiment, mode = 'stage' }: ExperimentRen
 
       for (let i = iterations; i > 0; i -= 1) {
         const y = i / 253
-        const k = 5 * Math.cos(i / 44)
-        const e = y / 2 - 15
+        const k = 5 * Math.cos(i / 56)
+        const e = y / 3 - 16
         const d = Math.max(Math.hypot(k, e) / 3, 0.001)
-        const c = d / 2 - time / 3 + (i % 2) * 3
-        const x = (79 + d * d + k * k) * Math.sin(c)
-        const pointY = 99 * Math.cos(c / 2) + 4 * Math.sin(k * 2) + y / (77 * Math.sin(e / 2) + 0.0001) * k * e + d ** 3 / 4 * Math.cos(time * 3 - d * d / 4)
+        const c = d / 2 - time / 3
+        const x = (d * 19 + 29 + k * k) * Math.sin(c)
+        const denominator = y < 9 ? 7 : 203 * Math.sin(e / 2)
+        const pointY = 66 * Math.sin(c / 3) + 4 * Math.sin(k * 2) + d ** 3 / 3 * Math.sin(time * 3 - d * d / 4) + y / (denominator || 0.0001) * k * e
         const alpha = Math.min(0.8, 0.08 + d * 0.018)
         context.globalAlpha = alpha
         const size = compact ? 0.65 : 0.85
