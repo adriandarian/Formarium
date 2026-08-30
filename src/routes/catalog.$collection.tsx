@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { CollectionPreview } from '../components/CollectionPreview'
 import { ExperimentCard } from '../components/ExperimentCard'
 import { ExperimentPreview } from '../components/ExperimentPreview'
@@ -158,6 +158,7 @@ function MathematicalArtCollectionPage({
   const [sort, setSort] = useState<ArchiveSort>('curated')
   const [view, setView] = useState<ArchiveView>('grid')
   const [visibleCount, setVisibleCount] = useState(8)
+  const loadMoreRef = useRef<HTMLDivElement>(null)
 
   const systems = mathematicalSystems.filter((itemSystem) =>
     items.some((item) => item.tags.includes(itemSystem)),
@@ -188,6 +189,23 @@ function MathematicalArtCollectionPage({
 
   const visibleItems = filteredItems.slice(0, visibleCount)
   const hasMoreItems = visibleCount < filteredItems.length
+
+  useEffect(() => {
+    const sentinel = loadMoreRef.current
+    if (!sentinel || !hasMoreItems) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return
+        observer.unobserve(sentinel)
+        setVisibleCount((count) => Math.min(count + 12, filteredItems.length))
+      },
+      { rootMargin: '700px 0px' },
+    )
+
+    observer.observe(sentinel)
+    return () => observer.disconnect()
+  }, [filteredItems.length, hasMoreItems, visibleCount])
 
   function resetArchiveWindow() {
     setVisibleCount(8)
@@ -379,15 +397,11 @@ function MathematicalArtCollectionPage({
         )}
 
         {hasMoreItems && (
-          <button
-            className="math-archive__more"
-            type="button"
-            onClick={() => setVisibleCount((count) => count + 12)}
-          >
-            <span>Show more works</span>
-            <span>{filteredItems.length - visibleCount} remaining</span>
-          </button>
+          <div ref={loadMoreRef} className="math-archive__sentinel" aria-hidden="true" />
         )}
+        <span className="sr-only" aria-live="polite">
+          Showing {visibleItems.length} of {filteredItems.length} works
+        </span>
       </section>
     </section>
   )
