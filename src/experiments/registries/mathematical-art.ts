@@ -10,7 +10,6 @@ export const mathematicalStageLoaders = {
   'phase-orbit': () => import('../mathematical-art/phase-orbit'),
   'phase-echo': () => import('../mathematical-art/phase-echo'),
   'whisper-field': () => import('../mathematical-art/whisper-field'),
-  'magnetic-echo': () => import('../mathematical-art/magnetic-echo'),
   'tidal-cipher': () => import('../mathematical-art/tidal-cipher'),
 } satisfies Record<string, ExperimentLoader>
 
@@ -24,6 +23,5 @@ export const mathematicalPreviewLoaders = {
   'phase-orbit': () => import('../mathematical-art/phase-orbit'),
   'phase-echo': () => import('../mathematical-art/phase-echo'),
   'whisper-field': () => import('../mathematical-art/whisper-field'),
-  'magnetic-echo': () => import('../mathematical-art/magnetic-echo'),
   'tidal-cipher': () => import('../mathematical-art/tidal-cipher'),
 } satisfies Record<string, ExperimentLoader>
