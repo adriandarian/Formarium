@@ -7,8 +7,10 @@ export const mathematicalStageLoaders = {
   'fourier-seraph': () => import('../mathematical-art/fourier-seraph'),
   'turbulent-filament': () => import('../mathematical-art/turbulent-filament'),
   'whispering-lantern': () => import('../mathematical-art/whispering-lantern'),
+  'magnetic-echo': () => import('../mathematical-art/magnetic-echo'),
   'phase-orbit': () => import('../mathematical-art/phase-orbit'),
   'phase-echo': () => import('../mathematical-art/phase-echo'),
+  'tidal-cipher': () => import('../mathematical-art/tidal-cipher'),
   'whisper-field': () => import('../mathematical-art/whisper-field'),
 } satisfies Record<string, ExperimentLoader>
 
@@ -19,7 +21,9 @@ export const mathematicalPreviewLoaders = {
   'fourier-seraph': () => import('../mathematical-art/fourier-seraph.preview'),
   'turbulent-filament': () => import('../mathematical-art/turbulent-filament.preview'),
   'whispering-lantern': () => import('../mathematical-art/whispering-lantern.preview'),
+  'magnetic-echo': () => import('../mathematical-art/magnetic-echo'),
   'phase-orbit': () => import('../mathematical-art/phase-orbit'),
   'phase-echo': () => import('../mathematical-art/phase-echo'),
+  'tidal-cipher': () => import('../mathematical-art/tidal-cipher'),
   'whisper-field': () => import('../mathematical-art/whisper-field'),
 } satisfies Record<string, ExperimentLoader>
