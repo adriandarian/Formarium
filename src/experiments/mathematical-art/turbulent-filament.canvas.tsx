@@ -37,28 +37,20 @@ export function TurbulentFilamentCanvas({ experiment, compact = false }: { exper
       const scale = Math.min(width, height) / 400
       const cx = width / 2
       const cy = height / 2
-      const strands = compact ? 34 : 64
-      const samples = compact ? 72 : 135
+      const points = compact ? 5200 : 12000
       context.globalCompositeOperation = 'lighter'
 
-      for (let strand = 0; strand < strands; strand += 1) {
-        const y = strand / strands * 2 - 1
-        context.beginPath()
-        for (let i = 0; i < samples; i += 1) {
-          const u = i / (samples - 1)
-          const angle = (u - 0.5) * TAU * 1.18
-          const k = (4 + Math.cos(y * 3.1)) * Math.cos(angle)
-          const d = Math.hypot(k, y * 2.3) - 6
-          const c = d / 2 - t / 2 + (strand % 2) * 8
-          const radius = (79 + k * k) * scale
-          const x = cx + radius * Math.cos(c)
-          const py = cy + 99 * scale * Math.sin(c / 3) + (d ** 3 / 5) * scale * Math.sin(t * 3 - d / 0.7) + 3 * scale * Math.sin(k * 2) + y * 13 * scale * k * (y * 0.2 + Math.sin(y * 8 - d * 4))
-          if (i === 0) context.moveTo(x, py)
-          else context.lineTo(x, py)
-        }
-        context.strokeStyle = `rgba(245,245,245,${0.035 + (strand % 5) * 0.012})`
-        context.lineWidth = compact ? 0.5 : 0.72
-        context.stroke()
+      for (let i = points; i--;) {
+        const y = i / 524
+        const angle = i * 0.013
+        const k = (4 + Math.cos(y)) * Math.cos(angle)
+        const e = y / 5 - 11
+        const d = Math.hypot(k, e) - 6
+        const c = d / 2.5 - t / 2 + (i % 2) * 9
+        const x = cx + (79 + k * k) * scale * Math.cos(c)
+        const py = cy + scale * (99 * Math.sin(c / 3) + d * d * Math.sin(t * 3 - d / 0.7) + 3 * Math.sin(k * 2) + Math.sin(y / 9) * k * (e + Math.sin(e * 4 - d * 4)))
+        context.fillStyle = `rgba(245,245,245,${compact ? 0.055 : 0.075})`
+        context.fillRect(x, py, compact ? 0.55 : 0.72, compact ? 0.55 : 0.72)
       }
 
       context.globalCompositeOperation = 'source-over'
