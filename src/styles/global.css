@@ -97,7 +97,7 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monos
 .landing-hero { position: relative; min-height: 618px; margin-bottom: 0; overflow: hidden; }
 .landing-hero > *:not(.orbital-field) { position: relative; z-index: 1; }
 .landing-hero .page-heading { margin-bottom: 0; }
-.page--landing > .section-heading { position: relative; z-index: 1; margin-top: -34px; }
+.page--landing > .section-heading { position: relative; z-index: 1; margin: -34px 0 0; }
 .orbital-field { position: absolute; z-index: 0; right: -28px; top: -2px; width: min(65.4vw, 866px); height: auto; opacity: 1; pointer-events: none; user-select: none; transition: filter .35s ease, opacity .35s ease; }
 :root:not([data-theme="light"]) .orbital-field { filter: invert(1); opacity: .64; }
 .page-heading { max-width: 760px; margin-bottom: 64px; }
