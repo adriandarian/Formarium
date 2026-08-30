@@ -9,6 +9,7 @@ export const mathematicalStageLoaders = {
   'whispering-lantern': () => import('../mathematical-art/whispering-lantern'),
   'phase-orbit': () => import('../mathematical-art/phase-orbit'),
   'tidal-cipher': () => import('../mathematical-art/tidal-cipher'),
+  'whisper-field': () => import('../mathematical-art/whisper-field'),
 } satisfies Record<string, ExperimentLoader>
 
 export const mathematicalPreviewLoaders = {
@@ -20,4 +21,5 @@ export const mathematicalPreviewLoaders = {
   'whispering-lantern': () => import('../mathematical-art/whispering-lantern.preview'),
   'phase-orbit': () => import('../mathematical-art/phase-orbit'),
   'tidal-cipher': () => import('../mathematical-art/tidal-cipher'),
+  'whisper-field': () => import('../mathematical-art/whisper-field'),
 } satisfies Record<string, ExperimentLoader>

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import type { ExperimentRendererProps } from '../types'
 
-export default function PhaseOrbit({ experiment, mode = 'stage' }: ExperimentRendererProps) {
+export default function WhisperField({ experiment, mode = 'stage' }: ExperimentRendererProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -30,25 +30,23 @@ export default function PhaseOrbit({ experiment, mode = 'stage' }: ExperimentRen
       context.fillStyle = '#090909'
       context.fillRect(0, 0, bounds.width, bounds.height)
 
-      const time = reducedMotion ? 0 : frame * Math.PI / 80
+      const time = reducedMotion ? 0 : frame * Math.PI / 60
       const scale = Math.min(bounds.width, bounds.height) / 400
       const originX = bounds.width / 2 - 200 * scale
       const originY = bounds.height / 2 - 200 * scale
-      const iterations = compact ? 4200 : 10000
-      context.fillStyle = compact ? 'rgba(231, 238, 255, 0.28)' : 'rgba(231, 238, 255, 0.2)'
+      const iterations = compact ? 4200 : 20000
+      context.fillStyle = compact ? 'rgba(238, 245, 255, 0.3)' : 'rgba(238, 245, 255, 0.2)'
 
       for (let i = iterations; i > 0; i -= 1) {
-        const y = i / 285
-        const k = 5 * Math.cos(i / 44)
-        const e = y / 2 - 15
-        const d = Math.max(Math.hypot(k, e) / 3, 0.001)
-        const safeD = Math.max(d, 0.001)
-        const c = safeD / 2 - time / 3 + (i % 2) * 9
-        const x = (79 + safeD * safeD + k * k) * Math.sin(c)
-        const pointY = 99 * Math.cos(c / 3) + 9 / safeD * Math.sin(k * 2) + y / (77 * Math.sin(e / 2) + 0.0001) * k * e + safeD ** 3 / safeD * Math.cos(time * 3 - safeD * safeD / 4)
-        const alpha = Math.min(0.8, 0.08 + safeD * 0.018)
-        context.globalAlpha = alpha
-        const size = compact ? 0.65 : 0.85
+        const y = i / 995
+        const k = (4 + Math.cos(y * 31 + time)) * Math.cos(i / 99)
+        const e = y / 5 - 11
+        const d = Math.hypot(k, e) - 6
+        const c = d / 2 - time / 2 + (i % 3) * 8
+        const x = (79 + k * k) * Math.cos(c)
+        const pointY = 99 * Math.sin(c / 3) + d * d * Math.sin(time * 3 - d) + 3 * Math.sin(k * 2) + y / 13 * k * (e + Math.sin(e * 4 - d * 4))
+        context.globalAlpha = Math.min(0.8, 0.08 + Math.abs(d) * 0.018)
+        const size = compact ? 0.6 : 0.8
         context.fillRect(originX + (x + 200) * scale, originY + (pointY + 200) * scale, size, size)
       }
 
