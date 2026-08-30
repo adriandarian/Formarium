@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import type { ExperimentRendererProps } from '../types'
 
-export default function PhaseOrbit({ experiment, mode = 'stage' }: ExperimentRendererProps) {
+export default function MagneticWhisper({ experiment, mode = 'stage' }: ExperimentRendererProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -11,7 +11,7 @@ export default function PhaseOrbit({ experiment, mode = 'stage' }: ExperimentRen
 
     const compact = mode === 'preview'
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    let frame = 0
+    let time = 0
     let animationFrame = 0
     let mounted = true
 
@@ -30,31 +30,30 @@ export default function PhaseOrbit({ experiment, mode = 'stage' }: ExperimentRen
       context.fillStyle = '#090909'
       context.fillRect(0, 0, bounds.width, bounds.height)
 
-      const time = reducedMotion ? 0 : frame * Math.PI / 80
       const scale = Math.min(bounds.width, bounds.height) / 400
-      const originX = bounds.width / 2 - 200 * scale
-      const originY = bounds.height / 2 - 200 * scale
-      const iterations = compact ? 4200 : 10000
-      context.fillStyle = compact ? 'rgba(231, 238, 255, 0.28)' : 'rgba(231, 238, 255, 0.2)'
+      const offsetX = bounds.width / 2 - 200 * scale
+      const offsetY = bounds.height / 2 - 200 * scale
+      const phase = reducedMotion ? 0 : time
+      const iterations = compact ? 5200 : 10000
+      const dot = compact ? 0.7 : 0.9
 
-      for (let i = iterations; i > 0; i -= 1) {
-        const y = i / 285
-        const k = 5 * Math.cos(i / 44)
-        const e = y / 2 - 15
-        const d = Math.max(Math.hypot(k, e) / 3, 0.001)
-        const safeD = Math.max(d, 0.001)
-        const c = safeD / 2 - time / 3 + (i % 2) * 9
-        const x = (79 + safeD * safeD + k * k) * Math.sin(c)
-        const pointY = 99 * Math.cos(c / 3) + 9 / safeD * Math.sin(k * 2) + y / (77 * Math.sin(e / 2) + 0.0001) * k * e + safeD ** 3 / safeD * Math.cos(time * 3 - safeD * safeD / 4)
-        const alpha = Math.min(0.8, 0.08 + safeD * 0.018)
-        context.globalAlpha = alpha
-        const size = compact ? 0.65 : 0.85
-        context.fillRect(originX + (x + 200) * scale, originY + (pointY + 200) * scale, size, size)
+      for (let index = iterations; index > 0; index -= 1) {
+        const i = index / 360
+        const k = 9 * Math.cos(i * 5) * Math.sin(i)
+        const e = Math.cos(i * 4) * Math.sin(i * 3) * 9
+        const distance = Math.hypot(k, e) ** 3 / 999 + 1.2 - Math.sin(phase / 2 + i) ** 3 / 4
+        const d = Math.max(distance, 0.025)
+        const p = d * Math.sin(d * d - phase + i)
+        const c = d / 9 - phase / 48 + i
+        const x = 99 * Math.sin(c + k * p) + 200
+        const y = 99 * Math.sin(c * 4) + e * p + 200
+        const glow = Math.min(0.9, 0.08 + d * 0.08)
+        context.fillStyle = `rgba(255, ${Math.round(165 + glow * 80)}, ${Math.round(90 + glow * 100)}, ${compact ? glow * 0.48 : glow * 0.62})`
+        context.fillRect(offsetX + x * scale, offsetY + y * scale, dot, dot)
       }
 
-      context.globalAlpha = 1
       if (!reducedMotion) {
-        frame += 1
+        time += Math.PI / 20
         animationFrame = requestAnimationFrame(draw)
       }
     }
